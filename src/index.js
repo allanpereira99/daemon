@@ -4,20 +4,17 @@ const fs = require('fs');
 const { down } = require('./modules/mp3');
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 bot.on('message', async (msg) => {
-    const missing = 'missing parameter'
+    const reply = { reply_to_message_id: msg.message_id };
+    const missing = 'missing parameter';
     const chatId = msg.chat.id;
     let text = msg.text;
     if (text == '/start') {
-        bot.sendMessage(chatId, `Welcome ${msg.from.first_name}  in DaemonBot`, {
-            reply_to_message_id: msg.message_id
-        });
+        bot.sendMessage(chatId, `Welcome ${msg.from.first_name}  in DaemonBot`, reply);
 
     }
     if (text.slice(0, 4) == '/mp3') {
-        if (text.length > 5) {
-            bot.sendMessage(chatId, '📬Downloading music!...', {
-                reply_to_message_id: msg.message_id
-            });
+        if (text.slice(5, 29) == 'https://www.youtube.com/') {
+            bot.sendMessage(chatId, '📬Downloading music!...', reply);
             await down(text.slice(4));
             const stream = fs.readFileSync('./src/tmp/music.mp3');
             await bot.sendAudio(chatId, stream, {
@@ -27,7 +24,7 @@ bot.on('message', async (msg) => {
         }
 
         else {
-            bot.sendMessage(chatId, `${missing}`, { reply_to_message_id: msg.message_id });
+            bot.sendMessage(chatId, `${missing}`, reply);
         };
 
     };
@@ -43,13 +40,28 @@ bot.on('message', async (msg) => {
             search(text, opts, function (err, results) {
                 return new Promise(resolve => {
                     if (err) return console.log(err);
-                    resolve(bot.sendMessage(chatId, `${results[0].link}`, { reply_to_message_id: msg.message_id }))
+                    resolve(bot.sendMessage(chatId, `${results[0].link}`, reply))
                 });
 
             });
         }
         else {
-            bot.sendMessage(chatId, `${missing}`, { reply_to_message_id: msg.message_id });
+            bot.sendMessage(chatId, `${missing}`, reply);
         };
+    };
+
+    if (text.slice(0, 5) == '/help') {
+
+        switch (text) {
+            case '/help yt':
+                bot.sendMessage(chatId, `/yt name from the video`, reply);
+                break
+            case '/help mp3':
+                bot.sendMessage(chatId, `/mp3 link from video youtube`, reply);
+                break
+            default:
+                bot.sendMessage(chatId, `for help " /help command "`, reply);
+                break
+        }
     };
 });
