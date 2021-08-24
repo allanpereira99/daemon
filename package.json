@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "node-telegram-bot-api": "^0.54.0",
+    "youtube-mp3-converter": "^1.0.3"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/Allansouzadk/daemon/issues"
   },
-  "homepage": "https://github.com/Allansouzadk/daemon#readme",
-  "dependencies": {
-    "node-telegram-bot-api": "^0.54.0"
-  }
+  "homepage": "https://github.com/Allansouzadk/daemon#readme"
 }
