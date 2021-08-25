@@ -2,6 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const { BOT_TOKEN } = require('./config/configs');
 const fs = require('fs');
 const { down } = require('./modules/mp3');
+const { mp4 } = require('./modules/mp4')
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 bot.on('message', async (msg) => {
     const reply = { reply_to_message_id: msg.message_id };
@@ -49,6 +50,19 @@ bot.on('message', async (msg) => {
             bot.sendMessage(chatId, `${missing}`, reply);
         };
     };
+
+    if (text.slice(0, 4) == '/mp4') {
+        if (text.slice(5, 29) == 'https://www.youtube.com/') {
+            bot.sendMessage(chatId, '📬Downloading video!...', reply);
+        }
+        mp4(text);
+        bot.sendVideo(chatId, './src/tmp/video.mp4', reply);
+    }
+
+    else {
+        bot.sendMessage(chatId, `${missing}`, reply);
+    };
+
 
     if (text.slice(0, 5) == '/help') {
 
