@@ -7,7 +7,8 @@
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "node-telegram-bot-api": "^0.54.0",
     "youtube-mp3-converter": "^1.0.3",
-    "youtube-search": "^1.1.6"
+    "youtube-search": "^1.1.6",
+    "ytdl-core": "^4.9.1"
   },
   "devDependencies": {},
   "scripts": {
