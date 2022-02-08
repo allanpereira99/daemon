@@ -8,11 +8,13 @@
     "node-telegram-bot-api": "^0.54.0",
     "youtube-mp3-converter": "^1.0.3",
     "youtube-search": "^1.1.6",
-    "ytdl-core": "^4.9.1"
+    "ytdl-core": "^4.9.1",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+   "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",

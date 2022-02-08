@@ -1,9 +1,11 @@
 const TelegramBot = require("node-telegram-bot-api");
-const { BOT_TOKEN } = require("./config/configs");
 const fs = require("fs");
 const { down } = require("./modules/mp3");
 const { mp4 } = require("./modules/mp4");
-const bot = new TelegramBot(BOT_TOKEN, { polling: true });
+const dotenv = require('dotenv');
+dotenv.config();
+
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 bot.on("message", async (msg) => {
   const reply = { reply_to_message_id: msg.message_id };
   const missing = "missing parameter";
@@ -35,7 +37,7 @@ bot.on("message", async (msg) => {
       const { YT_KEY } = require("./config/configs");
       let opts = {
         maxResults: 1,
-        key: YT_KEY,
+        key: process.env.YT_KEY,
         type: "video",
       };
       search(text, opts, function (err, results) {
